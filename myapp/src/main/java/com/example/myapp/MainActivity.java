@@ -15,7 +15,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
+    /**
+     * 安装应用
+     * @param view
+     */
+    public void onClick0(View view) {
         // int COMPARE_VERSION = 0X01 << 3;
         // int SKIP_DEX_OPT = 0x01 << 6;
         // 或运算结果 72
@@ -26,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
         VirtualCore.get().installPackage("/storage/emulated/0/app.apk", flags);
     }
 
+    /**
+     * 启动应用
+     * @param view
+     */
     public void onClick(View view) {
         // 打开应用
         Intent intent =  VirtualCore.get().getLaunchIntent("kim.hsl.svg", 0);
