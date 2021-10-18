@@ -3,6 +3,7 @@ package com.example.myapp;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.lody.virtual.client.core.VirtualCore;
 
@@ -34,7 +35,7 @@ public class VApp extends Application {
         gApp = this;
         super.onCreate();
 
-        new Thread(){
+        /*new Thread(){
             @Override
             public void run() {
                 File file = new File(getFilesDir(), "app.apk");
@@ -44,9 +45,26 @@ public class VApp extends Application {
                     copyFile();
                 }
             }
-        }.start();
+        }.start();*/
+
+        File file = new File(getFilesDir(), "app.apk");
+        // 如果文件不存在 , 则拷贝文件
+        if (!file.exists()) {
+            // 拷贝文件到内置存储
+            copyFile();
+            Toast.makeText(this, file.getAbsolutePath() +  " 文件拷贝完毕 , 可以安装插件", Toast.LENGTH_LONG).show();
+            Log.i("HSL", file.getAbsolutePath() +  " 文件拷贝完毕 , 可以安装插件");
+        } else {
+            Toast.makeText(this, file.getAbsolutePath() + " 文件已存在 , 可以安装插件", Toast.LENGTH_LONG).show();
+            Log.i("HSL", file.getAbsolutePath() + " 文件已存在 , 可以安装插件");
+        }
+
     }
 
+    /**
+     * 将 VirtualApp\myapp\src\main\assets\app.apk 文件 ,
+     * 拷贝到 /data/user/0/com.example.myapp/files/app.apk 位置
+     */
     public void copyFile() {
         try {
             InputStream inputStream = getAssets().open("app.apk");

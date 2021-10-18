@@ -2,6 +2,7 @@ package com.example.myapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -15,6 +16,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 是否自动安装并启动插件应用
+        boolean isAuto = true;
+        if (isAuto) {
+            new Thread() {
+                @Override
+                public void run() {
+                    // 安装插件
+                    installPackage();
+
+                    SystemClock.sleep(3000);
+
+                    //启动插件
+                    startApp();
+                }
+            }.start();
+        }
     }
 
     /**
@@ -22,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void onClick0(View view) {
+        //installPackage();
+    }
+
+    private void installPackage() {
         // int COMPARE_VERSION = 0X01 << 3;
         // int SKIP_DEX_OPT = 0x01 << 6;
         // 或运算结果 72
@@ -37,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void onClick(View view) {
+        //startApp();
+    }
+
+    private void startApp() {
         // 打开应用
         Intent intent =  VirtualCore.get().getLaunchIntent("kim.hsl.svg", 0);
         /*VirtualCore.get().setUiCallback(intent, null);
