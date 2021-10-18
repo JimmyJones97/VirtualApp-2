@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 安装 SD 卡根目录中的 app.apk 文件
         // /storage/emulated/0/app.apk
-        VirtualCore.get().installPackage("/storage/emulated/0/app.apk", flags);
+        VirtualCore.get().installPackage(getFilesDir() + "/app.apk", flags);
     }
 
     /**
