@@ -2,9 +2,11 @@ package com.example.myapp;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.myapp.hotfix.FixDexUtils;
 import com.lody.virtual.client.core.VirtualCore;
 
 import java.io.File;
@@ -22,6 +24,11 @@ public class VApp extends Application {
 
     @Override
     protected void attachBaseContext(Context base) {
+        MultiDex.install(base);
+
+        // 每次启动应用都先进行修复包加载操作
+        FixDexUtils.loadDex(base);
+
         super.attachBaseContext(base);
         try {
             VirtualCore.get().startup(base);

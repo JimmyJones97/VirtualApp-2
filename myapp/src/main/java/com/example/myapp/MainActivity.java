@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
      * 启动应用
      * @param view
      */
-    public void onClick(View view) {
+    public void onClick1(View view) {
         //startApp();
     }
 
