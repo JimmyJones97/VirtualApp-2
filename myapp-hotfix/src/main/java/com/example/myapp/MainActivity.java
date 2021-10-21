@@ -28,32 +28,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 是否自动安装并启动插件应用
-        boolean isAuto = false;
+        boolean isAuto = true;
         if (isAuto) {
             new Thread() {
                 @Override
                 public void run() {
                     // 安装插件
-                    installPackage();
+                    Business.anzhuang(MainActivity.this);
 
                     SystemClock.sleep(3000);
 
                     //启动插件
-                    startApp();
+                    Business.qidong(MainActivity.this);
                 }
             }.start();
         }
     }
 
-    /**
-     * 安装应用
-     * @param view
-     */
-    public void onClick0(View view) {
-        //installPackage();
-    }
-
-    private void installPackage() {
+    /*private void installPackage() {
         // int COMPARE_VERSION = 0X01 << 3;
         // int SKIP_DEX_OPT = 0x01 << 6;
         // 或运算结果 72
@@ -62,29 +54,15 @@ public class MainActivity extends AppCompatActivity {
         // 安装 SD 卡根目录中的 app.apk 文件
         // /storage/emulated/0/app.apk
         VirtualCore.get().installPackage(getFilesDir() + "/app.apk", flags);
-    }
+    }*/
 
-    /**
-     * 启动应用
-     * @param view
-     */
-    public void onClick1(View view) {
-        //startApp();
-    }
-
-    private void startApp() {
+    /*private void startApp() {
         // 打开应用
         Intent intent =  VirtualCore.get().getLaunchIntent("kim.hsl.svg", 0);
-        /*VirtualCore.get().setUiCallback(intent, null);
-        try {
-            VirtualCore.get().preOpt("kim.hsl.svg");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
         VActivityManager.get().startActivity(intent, 0);
 
         finish();
-    }
+    }*/
 
     /**
      * 热修复 升级包 生成命令
@@ -115,7 +93,10 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             // 读取 SD 卡跟目录的 /storage/emulated/0/update.dex 文件
-            is = new FileInputStream(new File(Environment.getExternalStorageDirectory(), targetName));
+            //is = new FileInputStream(new File(Environment.getExternalStorageDirectory(), targetName));
+
+            // 读取 /data/user/0/com.example.myapp/files/update.dex 字节码文件
+            is = new FileInputStream(new File(getFilesDir(), "update.dex"));
             // 输出到目标文件
             os = new FileOutputStream(filePath);
 

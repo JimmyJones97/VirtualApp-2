@@ -20,12 +20,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".LoadingActivity"
-            android:excludeFromRecents="true"
-            android:noHistory="true"
-            android:screenOrientation="portrait"
-            android:taskAffinity="va.task.loading"/>
     </application>
 
 </manifest>
